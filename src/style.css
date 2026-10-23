@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600&family=Press+Start+2P&display=swap');
+
+/* --panel, --text, --accent and --heading are set from uiColors in src/config.ts. */
+:root {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--text);
+  background: var(--panel);
+  font-synthesis: none;
+  --shadow: color-mix(in srgb, var(--panel) 55%, black);
+}
+* { box-sizing: border-box; }
+html, body, #app { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+#app { position: relative; min-height: 100svh; }
+canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.settings { position: fixed; top: 18px; right: 18px; z-index: 3; font-size: 9px; }
+.settings-button, .settings-menu, .story-panel { border: 3px solid var(--accent); background: var(--panel); box-shadow: 5px 5px 0 var(--shadow); color: var(--text); }
+button { font: inherit; cursor: pointer; }
+.settings-bar { display: flex; gap: 8px; justify-content: flex-end; }
+.settings-button, .mute-button { padding: 11px; color: var(--text); }
+.mute-button { border: 3px solid var(--accent); background: var(--panel); box-shadow: 5px 5px 0 var(--shadow); }
+.settings-menu { margin-top: 8px; padding: 12px; display: grid; gap: 12px; line-height: 1.7; }
+.settings-menu[hidden] { display: none; }
+select { font: inherit; font-size: 9px; max-width: 140px; color: var(--text); background: var(--shadow); border: 1px solid var(--accent); }
+.story-panel { position: fixed; left: 50%; bottom: 28px; width: min(460px, calc(100% - 32px)); transform: translateX(-50%); padding: 24px; z-index: 4; line-height: 1.7; font-size: 11px; }
+.story-panel h2 { color: var(--heading); font-size: 15px; line-height: 1.5; margin: 5px 0 14px; }
+.back-outside { border: 2px solid var(--accent); padding: 10px; color: var(--panel); background: var(--text); }
+/* The title floats over the sky, so a panel-coloured shadow keeps it readable on light and dark skies. */
+.world-title { position: fixed; top: 18px; left: 20px; z-index: 2; display: grid; gap: 8px; color: var(--heading); text-shadow: 3px 3px var(--panel); }
+.world-title strong { font-family: 'Noto Sans Myanmar', sans-serif; font-size: 24px; }
+.world-title span { font-size: 9px; color: var(--text); text-shadow: 2px 2px var(--panel); }
+.indoor-title { opacity: .7; }
+.back-outside { position: fixed; left: 20px; bottom: 18px; z-index: 3; box-shadow: 4px 4px var(--shadow); }
+.story-panel p { margin: 10px 0; }
+.story-panel [lang='my'] { font-family: 'Noto Sans Myanmar', sans-serif; font-size: 14px; }
+.eyebrow { color: var(--accent); font-family: 'Noto Sans Myanmar', sans-serif; }
+.close { position: absolute; top: 6px; right: 8px; border: 0; background: none; color: var(--text); font-size: 20px; }
+/* Game overlays: the interaction prompt, centred messages, mini-map and touch controls. */
+.action-prompt, .banner { position: fixed; left: 50%; z-index: 3; border: 3px solid var(--accent); background: var(--panel); color: var(--text); font-family: 'Press Start 2P', 'Noto Sans Myanmar', monospace; text-align: center; }
+.action-prompt { bottom: 96px; transform: translateX(-50%); padding: 10px 14px; font-size: 11px; line-height: 1.9; box-shadow: 4px 4px 0 var(--shadow); white-space: nowrap; cursor: pointer; }
+.action-prompt:hover { background: var(--accent); color: var(--panel); }
+/* Sits between the joystick (left) and the Action button (right), wrapping rather than overlapping them. */
+.key-hints { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 2; width: max-content; max-width: calc(100% - 340px); padding: 7px 12px; font-size: 8px; line-height: 1.8; text-align: center; color: var(--text); background: color-mix(in srgb, var(--panel) 80%, transparent); pointer-events: none; }
+.key-hints[hidden] { display: none; }
+.banner { top: 32%; transform: translate(-50%, -50%); padding: 18px 26px; font-size: 18px; line-height: 1.9; color: var(--heading); box-shadow: 6px 6px 0 var(--shadow); }
+.mini-map { position: fixed; left: 20px; top: 92px; z-index: 2; width: 75px; height: auto; image-rendering: pixelated; border: 3px solid var(--accent); box-shadow: 4px 4px 0 var(--shadow); }
+.touch-controls[hidden], .mini-map[hidden], .action-prompt[hidden], .banner[hidden] { display: none; }
+.joystick { position: fixed; left: 24px; bottom: 24px; z-index: 3; width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent); background: color-mix(in srgb, var(--panel) 70%, transparent); touch-action: none; }
+.knob { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px; border-radius: 50%; background: var(--text); pointer-events: none; }
+.action-button { position: fixed; right: 28px; bottom: 36px; z-index: 3; width: 96px; height: 96px; border-radius: 50%; border: 3px solid var(--accent); background: var(--panel); color: var(--text); font-size: 10px; touch-action: none; box-shadow: 4px 4px 0 var(--shadow); }
+canvas { touch-action: none; }
+@media (max-width: 600px) {
+  .settings { top: 10px; right: 10px; }
+  .settings-button { font-size: 8px; padding: 9px; }
+  .story-panel { bottom: 14px; padding: 18px; font-size: 9px; }
+  .world-title { top: 12px; left: 12px; }
+  .world-title strong { font-size: 18px; }
+  .back-outside { left: 12px; bottom: 12px; font-size: 8px; }
+  .action-prompt { bottom: 170px; font-size: 9px; }
+  .banner { font-size: 14px; }
+  .mini-map { left: 12px; top: 74px; width: 54px; }
+}
